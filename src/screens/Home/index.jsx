@@ -1,10 +1,7 @@
-import React from "react";
-import { View, Text, StyleSheet, TextInput, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
+import Input from "../../components/input";
 
 const Home = ({ navigation }) => {
-  const [text, onChangeText] = React.useState("");
-  const [number, onChangeNumber] = React.useState("");
-
   return (
     <View style={styles.homeContainer}>
       <Text style={{ color: "#FFF", fontWeight: "bold", fontSize: 26 }}>
@@ -13,24 +10,11 @@ const Home = ({ navigation }) => {
       <View style={{ alignItems: "center" }}>
         <View style={styles.inputContainer}>
           <Text style={{ color: "#007ACC" }}>Username</Text>
-          <TextInput
-            style={styles.input}
-            value={text}
-            onChangeText={onChangeText}
-            placeholder="Insira seu nome de usuário"
-            placeholderTextColor="#555"
-          />
+          <Input width="100%" height={50} placeholder="Insira seu nome de usuário" />
         </View>
         <View style={styles.inputContainer}>
           <Text style={{ color: "#007ACC" }}>Sala</Text>
-          <TextInput
-            style={styles.input}
-            value={number}
-            onChangeText={onChangeNumber}
-            placeholder="Insira o número da sala"
-            placeholderTextColor="#555"
-            keyboardType="numeric"
-          />
+          <Input width="100%" height={50} placeholder="Insira o número da sala" type="numeric" />
         </View>
         <Pressable style={styles.joinButton} onPress={joinConversation}>
           <Text style={styles.joinButtonText}>Entrar</Text>
@@ -54,23 +38,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   inputContainer: { width: 300, marginBottom: 20 },
-  input: {
-    height: 50,
-    borderWidth: 1,
-    borderColor: "#004799",
-    padding: 10,
-    backgroundColor: "#252526",
-    width: "100%",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    color: "white",
-  },
   joinButton: {
     marginTop: 40,
     backgroundColor: "#007ACC",
