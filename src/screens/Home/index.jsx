@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import Input from "../../components/input";
+import Input from "../../components/Input";
 
 const Home = ({ navigation }) => {
   return (
@@ -10,11 +10,20 @@ const Home = ({ navigation }) => {
       <View style={{ alignItems: "center" }}>
         <View style={styles.inputContainer}>
           <Text style={{ color: "#007ACC" }}>Username</Text>
-          <Input width="100%" height={50} placeholder="Insira seu nome de usuário" />
+          <Input
+            width="100%"
+            height={50}
+            placeholder="Insira seu nome de usuário"
+          />
         </View>
         <View style={styles.inputContainer}>
           <Text style={{ color: "#007ACC" }}>Sala</Text>
-          <Input width="100%" height={50} placeholder="Insira o número da sala" type="numeric" />
+          <Input
+            width="100%"
+            height={50}
+            placeholder="Insira o número da sala"
+            type="numeric"
+          />
         </View>
         <Pressable style={styles.joinButton} onPress={joinConversation}>
           <Text style={styles.joinButtonText}>Entrar</Text>
