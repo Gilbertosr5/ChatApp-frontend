@@ -1,10 +1,44 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
 import Input from "../../components/Input";
+
+import { Ionicons } from '@expo/vector-icons/';
 
 const Conversation = () => {
   return (
     <View style={styles.conversationContainer}>
-      <View style={styles.messagesContainer}>
+      <ScrollView contentContainerStyle={styles.messagesContainer}>
+        <View style={styles.otherMessage}>
+          <Text style={styles.otherMessageText}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
+            dolor sit amet consectetur adipisicing elit.
+          </Text>
+        </View><View style={styles.otherMessage}>
+          <Text style={styles.otherMessageText}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
+            dolor sit amet consectetur adipisicing elit.
+          </Text>
+        </View><View style={styles.otherMessage}>
+          <Text style={styles.otherMessageText}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
+            dolor sit amet consectetur adipisicing elit.
+          </Text>
+        </View>
+        <View style={styles.message}>
+          <Text style={styles.messageText}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
+            dolor sit amet consectetur adipisicing elit.
+          </Text>
+        </View><View style={styles.message}>
+          <Text style={styles.messageText}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
+            dolor sit amet consectetur adipisicing elit.
+          </Text>
+        </View><View style={styles.message}>
+          <Text style={styles.messageText}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
+            dolor sit amet consectetur adipisicing elit.
+          </Text>
+        </View>
         <View style={styles.otherMessage}>
           <Text style={styles.otherMessageText}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
@@ -29,11 +63,11 @@ const Conversation = () => {
             dolor sit amet consectetur adipisicing elit.
           </Text>
         </View>
-      </View>
+      </ScrollView>
       <View style={styles.writeContainer}>
         <Input width={"80%"} height={50} placeholder="Digite sua mensagem..." />
-        <Pressable style={styles.joinButton}>
-          <Text style={styles.joinButtonText}>Enviar</Text>
+        <Pressable style={styles.sendButton}>
+          <Text style={styles.sendButtonText}><Ionicons name="send" size={20} color="white" /></Text>
         </Pressable>
       </View>
     </View>
@@ -62,7 +96,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
   },
-  joinButton: {
+  sendButton: {
     backgroundColor: "#007ACC",
     shadowColor: "#000",
     shadowOffset: {
@@ -77,10 +111,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 15,
   },
-  joinButtonText: {
+  sendButtonText: {
     color: "#FFF",
-    fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 16,
   },
   otherMessage: {
     backgroundColor: "#3E3E42",
