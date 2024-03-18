@@ -1,73 +1,37 @@
 import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
 import Input from "../../components/Input";
 
-import { Ionicons } from '@expo/vector-icons/';
+import { Ionicons } from "@expo/vector-icons/";
 
 const Conversation = () => {
   return (
     <View style={styles.conversationContainer}>
-      <ScrollView contentContainerStyle={styles.messagesContainer}>
-        <View style={styles.otherMessage}>
-          <Text style={styles.otherMessageText}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
-            dolor sit amet consectetur adipisicing elit.
-          </Text>
-        </View><View style={styles.otherMessage}>
-          <Text style={styles.otherMessageText}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
-            dolor sit amet consectetur adipisicing elit.
-          </Text>
-        </View><View style={styles.otherMessage}>
-          <Text style={styles.otherMessageText}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
-            dolor sit amet consectetur adipisicing elit.
-          </Text>
-        </View>
-        <View style={styles.message}>
-          <Text style={styles.messageText}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
-            dolor sit amet consectetur adipisicing elit.
-          </Text>
-        </View><View style={styles.message}>
-          <Text style={styles.messageText}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
-            dolor sit amet consectetur adipisicing elit.
-          </Text>
-        </View><View style={styles.message}>
-          <Text style={styles.messageText}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
-            dolor sit amet consectetur adipisicing elit.
-          </Text>
-        </View>
-        <View style={styles.otherMessage}>
-          <Text style={styles.otherMessageText}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
-            dolor sit amet consectetur adipisicing elit.
-          </Text>
-        </View>
-        <View style={styles.otherMessage}>
-          <Text style={styles.otherMessageText}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
-            dolor sit amet consectetur adipisicing elit.
-          </Text>
-        </View>
-        <View style={styles.message}>
-          <Text style={styles.messageText}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
-            dolor sit amet consectetur adipisicing elit.
-          </Text>
-        </View>
-        <View style={styles.otherMessage}>
-          <Text style={styles.otherMessageText}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
-            dolor sit amet consectetur adipisicing elit.
-          </Text>
+      <ScrollView
+        indicatorStyle={"white"}
+        style={{ width: "100%", paddingVertical: 5 }}
+        contentOffset={{ y: 1000 }}
+      >
+        <View style={styles.messagesContainer}>
+          <View style={styles.message}>
+            <Text style={styles.messageText}>
+              mini loren só pra ficar aqui e ter uma ideia
+            </Text>
+          </View>
+          <View style={styles.otherMessage}>
+            <Text style={{ color: "#007ACC", marginBottom: 5 }}>Igor3k</Text>
+            <Text style={styles.otherMessageText}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
+              ipsum dolor sit amet consectetur adipisicing elit.
+            </Text>
+          </View>
         </View>
       </ScrollView>
       <View style={styles.writeContainer}>
         <Input width={"80%"} height={50} placeholder="Digite sua mensagem..." />
         <Pressable style={styles.sendButton}>
-          <Text style={styles.sendButtonText}><Ionicons name="send" size={20} color="white" /></Text>
+          <Text style={styles.sendButtonText}>
+            <Ionicons name="send" size={20} color="white" />
+          </Text>
         </Pressable>
       </View>
     </View>
@@ -119,6 +83,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#3E3E42",
     maxWidth: "90%",
     padding: 13,
+    paddingTop: 7,
     borderTopRightRadius: 15,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
