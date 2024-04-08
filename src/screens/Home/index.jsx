@@ -1,22 +1,19 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
 
 import Input from "../../components/Input";
 
-import exportDB from "../../dbtestes/usersDB";
-usersDB = exportDB;
-
 const Home = ({ navigation }) => {
-  const [inputUserData, setInputUserData] = useState('');
-  const [inputRoomData, setInputRoomData] = useState('');
+  const [inputUserData, setInputUserData] = useState("");
+  const [inputRoomData, setInputRoomData] = useState("");
 
-  const handleUserChange = (text)=>{
-    setInputUserData(text)
-  }
+  const handleUserChange = (text) => {
+    setInputUserData(text);
+  };
 
-  const handleRoomChange = (text)=>{
-    setInputRoomData(text)
-  }
+  const handleRoomChange = (text) => {
+    setInputRoomData(text);
+  };
 
   return (
     <View style={styles.homeContainer}>
@@ -51,10 +48,25 @@ const Home = ({ navigation }) => {
   );
 
   function joinConversation() {
-    if(inputUserData == "Gil"){
-      if(inputRoomData == "123"){
-        navigation.navigate("Conversation");
-      }
+    if (inputUserData == "" && inputRoomData == "") {
+      Alert.alert(
+        "Usuário e/ou Sala vazios!",
+        "Preencha os campos de Usuário e Sala para poder conectar no Chat, por favor!"
+      );
+    } else if (inputUserData == "") {
+      Alert.alert(
+        "Insira um Usuário!",
+        "Preencha o campo de Usuário para poder se identificar no chat, por favor!"
+      );
+    } else if (inputRoomData == "") {
+      Alert.alert(
+        "Insira a sala!",
+        "Preencha o campo Sala para poder conectar se no Chat desejado, por favor!"
+      );
+    } else {
+      navigation.navigate("Conversation", {
+        paramKey: [inputUserData, inputRoomData],
+      });
     }
   }
 };

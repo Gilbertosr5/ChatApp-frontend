@@ -1,9 +1,16 @@
+import { useState } from "react";
 import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
 import Input from "../../components/Input";
 
 import { Ionicons } from "@expo/vector-icons/";
 
 const Conversation = () => {
+  const [inputMessage, setinputMessage] = useState("");
+
+  const handleMessageChange = (text) => {
+    setinputMessage(text);
+  };
+
   return (
     <View style={styles.conversationContainer}>
       <ScrollView
@@ -26,8 +33,15 @@ const Conversation = () => {
           </View>
         </View>
       </ScrollView>
+
+      {/* Message Input */}
       <View style={styles.writeContainer}>
-        <Input width={"80%"} height={50} placeholder="Digite sua mensagem..." />
+        <Input
+          width={"80%"}
+          height={50}
+          placeholder="Digite sua mensagem..."
+          onInputChange={handleMessageChange}
+        />
         <Pressable style={styles.sendButton}>
           <Text style={styles.sendButtonText}>
             <Ionicons name="send" size={20} color="white" />
