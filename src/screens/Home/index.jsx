@@ -1,7 +1,23 @@
+import { useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
+
 import Input from "../../components/Input";
 
+import exportDB from "../../dbtestes/usersDB";
+usersDB = exportDB;
+
 const Home = ({ navigation }) => {
+  const [inputUserData, setInputUserData] = useState('');
+  const [inputRoomData, setInputRoomData] = useState('');
+
+  const handleUserChange = (text)=>{
+    setInputUserData(text)
+  }
+
+  const handleRoomChange = (text)=>{
+    setInputRoomData(text)
+  }
+
   return (
     <View style={styles.homeContainer}>
       <Text style={{ color: "#FFF", fontWeight: "bold", fontSize: 26 }}>
@@ -14,6 +30,7 @@ const Home = ({ navigation }) => {
             width="100%"
             height={50}
             placeholder="Insira seu nome de usuário"
+            onInputChange={handleUserChange}
           />
         </View>
         <View style={styles.inputContainer}>
@@ -23,6 +40,7 @@ const Home = ({ navigation }) => {
             height={50}
             placeholder="Insira o número da sala"
             type="numeric"
+            onInputChange={handleRoomChange}
           />
         </View>
         <Pressable style={styles.joinButton} onPress={joinConversation}>
@@ -33,7 +51,11 @@ const Home = ({ navigation }) => {
   );
 
   function joinConversation() {
-    navigation.navigate("Conversation");
+    if(inputUserData == "Gil"){
+      if(inputRoomData == "123"){
+        navigation.navigate("Conversation");
+      }
+    }
   }
 };
 

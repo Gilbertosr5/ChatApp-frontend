@@ -1,15 +1,22 @@
 import { useState } from "react";
 import { StyleSheet, TextInput } from "react-native";
 
-const Input = ({placeholder, width, height, type})=>{
-    const [text, onChangeText] = useState("");
-    const [number, onChangeNumber] = useState("");
+const Input = ({placeholder, width, height, type, onInputChange})=>{
+    const [textInput, onChangeTextInput] = useState("");
+
+    const handleInputChange = (text)=>{
+      onChangeTextInput(text);
+      if(onInputChange){
+        onInputChange(text);
+      }
+    }
+
     if(type=="numeric"){
         return(
             <TextInput
             style={[styles.input, {width: width, height: height}]}
-            value={number}
-            onChangeText={onChangeNumber}
+            value={textInput}
+            onChangeText={handleInputChange}
             placeholder={placeholder}
             placeholderTextColor="#555"
             keyboardType="numeric"
@@ -19,8 +26,8 @@ const Input = ({placeholder, width, height, type})=>{
         return(
             <TextInput
                 style={[styles.input, {width: width, height: height }]}
-                value={text}
-                onChangeText={onChangeText}
+                value={textInput}
+                onChangeText={handleInputChange}
                 placeholder={placeholder}
                 placeholderTextColor="#555"
               />
