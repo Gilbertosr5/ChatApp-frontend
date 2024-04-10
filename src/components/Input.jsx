@@ -38,19 +38,19 @@ const Input = ({placeholder, width, height, type, onInputChange})=>{
 export default Input;
 
 const styles = StyleSheet.create({
-    input: {
-        borderWidth: 1,
-        borderColor: "#004799",
-        padding: 10,
-        backgroundColor: "#252526",
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-        color: "white",
-      },
+  input: {
+    borderWidth: 1,
+    borderColor: "#004799",
+    padding: 10,
+    backgroundColor: "#252526",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    color: "white",
+  },
 })

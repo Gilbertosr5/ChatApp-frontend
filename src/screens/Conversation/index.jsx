@@ -1,15 +1,10 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
-import Input from "../../components/Input";
+import { View, Text, StyleSheet, Pressable, ScrollView, TextInput, Alert } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons/";
 
 const Conversation = () => {
-  const [inputMessage, setinputMessage] = useState("");
-
-  const handleMessageChange = (text) => {
-    setinputMessage(text);
-  };
+  const [messageInput, setMessageInput] = useState("");
 
   return (
     <View style={styles.conversationContainer}>
@@ -36,15 +31,20 @@ const Conversation = () => {
 
       {/* Message Input */}
       <View style={styles.writeContainer}>
-        <Input
-          width={"80%"}
-          height={50}
+        <TextInput
+          multiline
+          style={styles.input}
+          value={messageInput}
+          onChangeText={setMessageInput}
           placeholder="Digite sua mensagem..."
-          onInputChange={handleMessageChange}
+          placeholderTextColor="#555"
         />
         <Pressable style={styles.sendButton}>
           <Text style={styles.sendButtonText}>
-            <Ionicons name="send" size={20} color="white" />
+            <Ionicons name="send" size={20} color="white" onPress={()=>{
+              Alert.alert("Mensagem capturada", messageInput)
+              setMessageInput("")
+            }} />
           </Text>
         </Pressable>
       </View>
@@ -118,5 +118,22 @@ const styles = StyleSheet.create({
   },
   messageText: {
     color: "#FFF",
+  },
+  input: {
+    width:"80%",
+    maxHeight: 80,
+    borderWidth: 1,
+    borderColor: "#004799",
+    padding: 10,
+    backgroundColor: "#252526",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    color: "white",
   },
 });
