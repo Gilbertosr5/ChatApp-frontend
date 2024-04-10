@@ -1,10 +1,54 @@
-import { useState } from "react";
-import { View, Text, StyleSheet, Pressable, ScrollView, TextInput, Alert } from "react-native";
+import { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  ScrollView,
+  TextInput,
+  Alert,
+} from "react-native";
 
 import { Ionicons } from "@expo/vector-icons/";
 
 const Conversation = () => {
   const [messageInput, setMessageInput] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [socket, setSocket] = useState(null);
+
+  useEffect(() => {
+    console.log("useEffect() acionado");
+
+    const socketInstance = new WebSocket("ws://192.168.15.7:8000/messaging"); //MUDAR DE ACORDO COM A MAQUINA (IPV4)
+
+    socketInstance.onopen = () => {
+      console.log("WebSocket Client Connected");
+    };
+
+    socketInstance.onerror = (error) => {
+      console.log("WebSocket Error: ", error);
+    };
+
+    socketInstance.onmessage = (event) => {
+      const dataFromServer = JSON.parse(event.data);
+      console.log("got reply! ", dataFromServer);
+      if (dataFromServer.type === "message") {
+        setMessages((messages) => [...messages, dataFromServer]);
+      }
+    };
+
+    setSocket(socketInstance);
+  }, []);
+
+  const sendMessage = (message) => {
+    socket.send(
+      JSON.stringify({
+        type: "message",
+        msg: message,
+        id: Math.floor(Math.random() * 100),
+      })
+    );
+  };
 
   return (
     <View style={styles.conversationContainer}>
@@ -41,10 +85,16 @@ const Conversation = () => {
         />
         <Pressable style={styles.sendButton}>
           <Text style={styles.sendButtonText}>
-            <Ionicons name="send" size={20} color="white" onPress={()=>{
-              Alert.alert("Mensagem capturada", messageInput)
-              setMessageInput("")
-            }} />
+            <Ionicons
+              name="send"
+              size={20}
+              color="white"
+              onPress={() => {
+                // Alert.alert("Mensagem chegou", messageInput);
+                sendMessage(messageInput);
+                setMessageInput("");
+              }}
+            />
           </Text>
         </Pressable>
       </View>
@@ -120,7 +170,7 @@ const styles = StyleSheet.create({
     color: "#FFF",
   },
   input: {
-    width:"80%",
+    width: "80%",
     maxHeight: 80,
     borderWidth: 1,
     borderColor: "#004799",
