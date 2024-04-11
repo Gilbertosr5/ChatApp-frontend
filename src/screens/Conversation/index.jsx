@@ -17,28 +17,38 @@ const Conversation = () => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    console.log("useEffect() acionado");
+    console.log("===============================")
+    console.log("useEffect CONVERSATION ativado");
 
     const socketInstance = new WebSocket("ws://192.168.15.7:8000/messaging"); //MUDAR DE ACORDO COM A MAQUINA (IPV4)
 
     socketInstance.onopen = () => {
+      console.log("-----------------------------")
       console.log("WebSocket Client Connected");
+      console.log("-----------------------------")
     };
 
     socketInstance.onerror = (error) => {
+      console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
       console.log("WebSocket Error: ", error);
+      console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
     };
 
-    socketInstance.onmessage = (event) => {
-      const dataFromServer = JSON.parse(event.data);
-      console.log("got reply! ", dataFromServer);
+    socketInstance.onmessage = (e) => {
+      const dataFromServer = JSON.parse(e.data);
+      console.log("Servidor: ", dataFromServer);
       if (dataFromServer.type === "message") {
-        setMessages((messages) => [...messages, dataFromServer]);
+        setMessages((currentMessages) => [...currentMessages, dataFromServer]);
       }
+      console.log(".")
     };
 
     setSocket(socketInstance);
   }, []);
+
+  useEffect(() => {
+    console.log(messages);
+  }, [messages]);
 
   const sendMessage = (message) => {
     socket.send(
