@@ -11,20 +11,24 @@ import {
 
 import { Ionicons } from "@expo/vector-icons/";
 
-const Conversation = () => {
+const Conversation = ({ navigation, route }) => {
   const [messageInput, setMessageInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
 
+  const { paramKey } = route.params;
+  const { username: inputUserData, room: inputRoomData } = paramKey;
+
   useEffect(() => {
+    console.log(inputUserData, inputRoomData)
     console.log("===============================")
     console.log("useEffect CONVERSATION ativado");
 
-    const socketInstance = new WebSocket("ws://192.168.15.7:8000/messaging"); //MUDAR DE ACORDO COM A MAQUINA (IPV4)
+    const socketInstance = new WebSocket("ws://192.168.0.101:8000/messaging"); //MUDAR DE ACORDO COM A MAQUINA (IPV4)
 
     socketInstance.onopen = () => {
       console.log("-----------------------------")
-      console.log("WebSocket Client Connected");
+      console.log(`${inputUserData} Client Connected`);
       console.log("-----------------------------")
     };
 
@@ -46,16 +50,19 @@ const Conversation = () => {
     setSocket(socketInstance);
   }, []);
 
+  /*
   useEffect(() => {
     console.log(messages);
   }, [messages]);
-
+*/
   const sendMessage = (message) => {
     socket.send(
       JSON.stringify({
         type: "message",
         msg: message,
         id: Math.floor(Math.random() * 100),
+        username: inputUserData,
+        room: inputRoomData,
       })
     );
   };
@@ -68,18 +75,29 @@ const Conversation = () => {
         contentOffset={{ y: 1000 }}
       >
         <View style={styles.messagesContainer}>
-          <View style={styles.message}>
-            <Text style={styles.messageText}>
-              mini loren só pra ficar aqui e ter uma ideia
-            </Text>
-          </View>
-          <View style={styles.otherMessage}>
-            <Text style={{ color: "#007ACC", marginBottom: 5 }}>Igor3k</Text>
-            <Text style={styles.otherMessageText}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
-              ipsum dolor sit amet consectetur adipisicing elit.
-            </Text>
-          </View>
+        {
+          messages.map(message => {
+            if (message.username == inputUserData) {
+              return (
+                <View key={message.id} style={styles.message}>
+                  <Text style={styles.messageText}>
+                    {message.msg}
+                  </Text>
+                </View>
+              );
+            } else {
+              return (
+                <View key={message.id} style={styles.otherMessage}>
+                  <Text style={{ color: "#007ACC", marginBottom: 5 }}>{message.username}</Text>
+                  <Text style={styles.otherMessageText}>
+                    {message.msg}
+                  </Text>
+                </View>
+              );
+            }
+          })
+          }
+
         </View>
       </ScrollView>
 
@@ -156,8 +174,8 @@ const styles = StyleSheet.create({
   otherMessage: {
     backgroundColor: "#3E3E42",
     maxWidth: "90%",
-    padding: 13,
-    paddingTop: 7,
+    padding: 10,
+    paddingTop: 5,
     borderTopRightRadius: 15,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,

@@ -65,7 +65,7 @@ const Home = ({ navigation }) => {
       );
     } else {
       navigation.navigate("Conversation", {
-        paramKey: [inputUserData, inputRoomData],
+        paramKey: {username: inputUserData, room: inputRoomData},
       });
     }
   }
