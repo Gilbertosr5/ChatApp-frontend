@@ -24,7 +24,7 @@ const Conversation = ({ navigation, route }) => {
     console.log("===============================")
     console.log("useEffect CONVERSATION ativado");
 
-    const socketInstance = new WebSocket("ws://192.168.0.101:8000/messaging"); //MUDAR DE ACORDO COM A MAQUINA (IPV4)
+    const socketInstance = new WebSocket("ws://192.168.15.7:8000/messaging"); //MUDAR DE ACORDO COM A MAQUINA (IPV4)
 
     socketInstance.onopen = () => {
       console.log("-----------------------------")
@@ -60,7 +60,7 @@ const Conversation = ({ navigation, route }) => {
       JSON.stringify({
         type: "message",
         msg: message,
-        id: Math.floor(Math.random() * 100),
+        id: Math.floor(Math.random() * 10000),
         username: inputUserData,
         room: inputRoomData,
       })
@@ -174,12 +174,14 @@ const styles = StyleSheet.create({
   otherMessage: {
     backgroundColor: "#3E3E42",
     maxWidth: "90%",
-    padding: 10,
+    padding: 12,
+    paddingRight: 16,
     paddingTop: 5,
     borderTopRightRadius: 15,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
     marginVertical: 7,
+    alignSelf: "flex-start",
   },
   otherMessageText: {
     color: "#FFF",
