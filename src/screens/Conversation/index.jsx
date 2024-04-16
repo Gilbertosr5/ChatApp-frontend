@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -16,26 +16,28 @@ const Conversation = ({ navigation, route }) => {
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
 
+  const scrollViewRef = useRef();
+
   const { paramKey } = route.params;
   const { username: inputUserData, room: inputRoomData } = paramKey;
 
   useEffect(() => {
-    console.log(inputUserData, inputRoomData)
-    console.log("===============================")
+    console.log(inputUserData, inputRoomData);
+    console.log("===============================");
     console.log("useEffect CONVERSATION ativado");
 
     const socketInstance = new WebSocket("ws://192.168.15.7:8000/messaging"); //MUDAR DE ACORDO COM A MAQUINA (IPV4)
 
     socketInstance.onopen = () => {
-      console.log("-----------------------------")
+      console.log("-----------------------------");
       console.log(`${inputUserData} Client Connected`);
-      console.log("-----------------------------")
+      console.log("-----------------------------");
     };
 
     socketInstance.onerror = (error) => {
-      console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
+      console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
       console.log("WebSocket Error: ", error);
-      console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
+      console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
     };
 
     socketInstance.onmessage = (e) => {
@@ -44,7 +46,7 @@ const Conversation = ({ navigation, route }) => {
       if (dataFromServer.type === "message") {
         setMessages((currentMessages) => [...currentMessages, dataFromServer]);
       }
-      console.log(".")
+      console.log(".");
     };
 
     setSocket(socketInstance);
@@ -73,31 +75,30 @@ const Conversation = ({ navigation, route }) => {
         indicatorStyle={"white"}
         style={{ width: "100%", paddingVertical: 5 }}
         contentOffset={{ y: 1000 }}
+        ref={scrollViewRef}
+        onContentSizeChange={() =>
+          scrollViewRef.current.scrollToEnd({ animated: true })
+        }
       >
         <View style={styles.messagesContainer}>
-        {
-          messages.map(message => {
+          {messages.map((message) => {
             if (message.username == inputUserData) {
               return (
                 <View key={message.id} style={styles.message}>
-                  <Text style={styles.messageText}>
-                    {message.msg}
-                  </Text>
+                  <Text style={styles.messageText}>{message.msg}</Text>
                 </View>
               );
             } else {
               return (
                 <View key={message.id} style={styles.otherMessage}>
-                  <Text style={{ color: "#007ACC", marginBottom: 5 }}>{message.username}</Text>
-                  <Text style={styles.otherMessageText}>
-                    {message.msg}
+                  <Text style={{ color: "#007ACC", marginBottom: 5 }}>
+                    {message.username}
                   </Text>
+                  <Text style={styles.otherMessageText}>{message.msg}</Text>
                 </View>
               );
             }
-          })
-          }
-
+          })}
         </View>
       </ScrollView>
 
